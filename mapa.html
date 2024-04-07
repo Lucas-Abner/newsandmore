@@ -1,0 +1,78 @@
+<!DOCTYPE>
+<html lang="pt">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Mapa com Rota</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFukrDKVN_Fi1vzR8x2DlW-iaecqndIw0&callback=initMap"
+    async defer></script>
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+      border: 0;
+      border-radius: 5px;
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mapa-area">
+    <h2>Venha até nós</h2>
+    <label for="destination">Destino:</label>
+    <input type="text" id="destination" placeholder="Digite o destino">
+    <button class="btn" onclick="calcularRota()">Calcular Rota</button>
+    <div id="map"></div>
+  </div>
+
+  <script>
+    
+    let map;
+    let directionsService;
+    let directionsRenderer;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 38.733570, lng: -9.141142 },
+        zoom: 16,
+      });
+
+      var marker = new google.maps.Marker({
+    position: { lat: 38.733570, lng: -9.141142 },
+    map: map,
+    title: 'Hello World!'
+  });
+      directionsService = new google.maps.DirectionsService();
+      directionsRenderer = new google.maps.DirectionsRenderer();
+      directionsRenderer.setMap(map);
+    }
+
+    function calcularRota() {
+      const destination = document.getElementById("destination").value;
+
+      const request = {
+        origin: "Master D Lisboa - Cursos e Formação, R. de Dona Estefânia 84 - A, 1000-158 Lisboa",
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      };
+
+      directionsService.route(request, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          directionsRenderer.setDirections(response);
+        } else {
+          window.alert("Não foi possível carregar a rota: " + status);
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

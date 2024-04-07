@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Author" content="Lucas">
+    <meta name="description" content="Caso pratico do Javascript">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Caso pratico Javascript</title>
+    <style>
+        #map{
+            width: 400px;
+            height: auto;
+        }
+    </style>
+</head>
+<body onload="carregado()">
+
+    <div class="loader-container" id="loader-container">
+        <div class="loader"></div>
+    </div>
+
+    <header>
+        <nav>
+            <ul class="lista">
+                <li><a class="home active" href="#home">Home</a></li>
+                <li><a class="orca" href="#orcamento">Orçamento</a></li>
+                <li><a class="" href="#galeria">Galeria</a></li>
+                <div class="btn-group dropstart drop">
+                    <a class="btn-drop dropdown-toggle" href="#contato" data-bs-toggle="dropdown" aria-expanded="false">
+                      Contato
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="mapa.html" target="_blank">Mapa</a></li>
+                      <li><a class="dropdown-item" href="#formulario">Formulario</a></li>
+                    </ul>
+                  </div>
+            </ul>
+        </nav>
+    </header>
+
+    <aside>
+        <div class="news"></div>
+        <div class="area-button">
+            <button type="button" class="btn-new"><img src="https://img2.gratispng.com/20180511/duw/kisspng-logo-newspaper-journalist-5af5d16ab48109.5242907015260593707394.jpg" width="40px" height="40px" alt=""></button>
+        </div>
+    </aside>
+
+    <article>
+        <div class="home-title">
+            <h1 style="color: red;">Hello World</h1>
+        </div>
+        <div class="home-desc">
+            <h2>Bem-vindo ao meu site<span class="pisc"></span></h2>
+        </div>
+    </article>
+
+    <div class="orcamento">
+        <div class="close" onclick="closeBtn(this)">X</div>
+        <div class="orcamento-area">
+            <h2>Orçamento Website</h2>
+            <form method="get">
+                <label for="tipo"><b>Tipo do seu website:</b></label><br><br>
+                <input type="radio" name="tipo" class="tipo" value="1" checked> Tipo 1<br>
+                <input type="radio" name="tipo" class="tipo" value="2"> Tipo 2<br>
+                <input type="radio" name="tipo" class="tipo" value="3"> Tipo 3<br><br>
+
+                <label for="incluir"><b>Marque os tópicos que deseja incluir</b></label><br><br>
+                <input type="checkbox" name="incluir" value="1"> Quem somos <br>
+                <input type="checkbox" name="incluir" value="2"> Onde estamos <br>
+                <input type="checkbox" name="incluir" value="3"> Galeria de fotos <br>
+                <input type="checkbox" name="incluir" value="4"> Noticias <br>
+                <input type="checkbox" name="incluir" value="5"> Redes sociais <br><br>
+
+                <label for="meses"><b>Em quantos meses deseja que esteja pronto?</b></label><br><br>
+                <input type="number" name="meses" id="meses" placeholder="Coloque o meses aqui"><br><br>
+
+                <input type="button" class="calcular" value="Calcular" onclick="calcOrca()">
+
+                <span id="result"></span>
+            </form>
+        </div>
+    </div>
+
+    <div class="contato">
+        <div class="close" onclick="closeBtn(this)">X</div>
+        <div class="contato-area">
+            <h2>Formulário</h2>
+            <form id="forme" method="get">
+                <div class="nome">
+                    <label for="firstName">Nome</label><br>
+                <input type="text" name="firstName" id="nome"><br>
+                </div>
+                <div class="apelido">
+                    <label for="lastName">Apelido</label><br>
+                    <input type="text" name="lastName" id="apelido"><br>
+                </div> 
+                <div class="email">
+                    <label for="email">E-mail</label><br>
+                    <input type="text" name="email" id="email"><br>
+                </div>
+                <div class="telemovel">
+                    <label for="telemovel">Telemóvel</label><br>
+                    <input type="text" name="telemovel" id="telemovel"><br>
+                </div>
+                <div class="data">
+                    <label for="data">Data da reunião</label>
+                    <input type="date" name="data" id="data"><br>
+                </div>
+                <div class="texto">
+                    <label for="texto">Motivo da reunião</label>
+                    <textarea name="texto" id="texto"></textarea><br>
+                </div>
+                <button type="submit" class="btn enviar">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="galeria">
+        <div class="close" onclick="closeBtn(this)">X</div>
+        <div class="galeria-area">
+            <h2>Galeria</h2>
+            <div class="gallery">
+                <img src="./assets/img/image1.jpg" alt="Imagem 1" onclick="openLightbox('./assets/img/image1.jpg')">
+                <img src="./assets/img/image2.jpg" alt="Imagem 2" onclick="openLightbox('./assets/img/image2.jpg')">
+                <img src="./assets/img/image3.jpg" alt="Imagem 3" onclick="openLightbox('./assets/img/image3.jpg')">
+                <img src="./assets/img/image4.jpg" alt="Imagem 4" onclick="openLightbox('./assets/img/image4.jpg')">
+              </div>
+              
+              <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+                <span class="close">X</span>
+                <img id="lightbox-img" class="lightbox-img" src="" alt="">
+              </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/app.js"></script>
+</body>
+</html>
